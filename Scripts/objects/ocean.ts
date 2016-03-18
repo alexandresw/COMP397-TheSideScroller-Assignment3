@@ -1,30 +1,29 @@
 module objects {
-    export class Ocean extends createjs.Bitmap {
+    export class Ocean extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES
-        private _dy:number;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
-            super(assets.getResult("ocean"));
+            super("ocean");
             
-            this._dy = 5; // 5 pixels per frame
-            this._reset();
+            this._speed.y = 5;
+            this._reset(-960);
         }
         
         public update():void {
-            this.y += this._dy;
-            this._checkBounds();
+            this.y += this._speed.y;
+            this._checkBounds(0);
         }
         
-        private _reset():void {
+        protected _reset(value:number):void {
             this.y = -960;
         }
         
-        private _checkBounds():void {
+        protected _checkBounds():void {
             // check to see if the top of the ocean
             // has met the top of the scene
             if(this.y >= 0){
-                this._reset();
+                this._reset(-960);
             }
         }
     }

@@ -17,16 +17,21 @@ var scenes;
         Play.prototype.start = function () {
             this._ocean = new objects.Ocean();
             this.addChild(this._ocean);
+            this._island = new objects.Island();
+            this.addChild(this._island);
+            this._cloud = new objects.Cloud();
+            this.addChild(this._cloud);
             // add this scene to the global stage container
             stage.addChild(this);
         };
         // PLAY Scene updates here
         Play.prototype.update = function () {
             this._ocean.update();
+            this._island.update();
+            this._cloud.update();
         };
         return Play;
-    }(objects.Scene));
+    })(objects.Scene);
     scenes.Play = Play;
 })(scenes || (scenes = {}));
-
 //# sourceMappingURL=play.js.map

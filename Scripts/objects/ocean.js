@@ -7,29 +7,29 @@ var objects;
 (function (objects) {
     var Ocean = (function (_super) {
         __extends(Ocean, _super);
+        // PRIVATE INSTANCE VARIABLES
         // CONSTRUCTOR ++++++++++++++++++++++
         function Ocean() {
-            _super.call(this, assets.getResult("ocean"));
-            this._dy = 5; // 5 pixels per frame
-            this._reset();
+            _super.call(this, "ocean");
+            this._speed.y = 5;
+            this._reset(-960);
         }
         Ocean.prototype.update = function () {
-            this.y += this._dy;
-            this._checkBounds();
+            this.y += this._speed.y;
+            this._checkBounds(0);
         };
-        Ocean.prototype._reset = function () {
+        Ocean.prototype._reset = function (value) {
             this.y = -960;
         };
         Ocean.prototype._checkBounds = function () {
             // check to see if the top of the ocean
             // has met the top of the scene
             if (this.y >= 0) {
-                this._reset();
+                this._reset(-960);
             }
         };
         return Ocean;
-    }(createjs.Bitmap));
+    })(objects.GameObject);
     objects.Ocean = Ocean;
 })(objects || (objects = {}));
-
 //# sourceMappingURL=ocean.js.map
