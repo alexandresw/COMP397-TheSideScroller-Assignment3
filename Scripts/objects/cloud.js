@@ -12,6 +12,7 @@ var objects;
         function Cloud() {
             _super.call(this, "cloud");
             this._reset(this._topBounds);
+            this.name = "cloud";
         }
         Cloud.prototype._checkBounds = function (value) {
             // check to see if the top of the cloud
@@ -32,7 +33,8 @@ var objects;
             this._checkBounds(this._bottomBounds);
         };
         return Cloud;
-    })(objects.GameObject);
+    }(objects.GameObject));
     objects.Cloud = Cloud;
 })(objects || (objects = {}));
+
 //# sourceMappingURL=cloud.js.map

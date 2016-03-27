@@ -3,25 +3,31 @@ module objects {
     export class GameObject extends createjs.Bitmap {
         // PROTECTED INSTANCE VARIABLES
         protected _speed:createjs.Point;
-        protected _width:number;
-        protected _height:number;
         protected _leftBounds:number;
         protected _rightBounds:number;
         protected _topBounds:number;
         protected _bottomBounds:number;
         
+        // PUBLIC INSTANCE VARIABLES
+         public name:string;
+        public centerX:number;
+        public centerY:number;
+        public width:number;
+        public height:number;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor(bitmapString:String) {
             super(assets.getResult(bitmapString));
             
             this._speed = new createjs.Point(0, 0);
-            this._width = this.getBounds().width;
-            this._height = this.getBounds().height;
-            this._topBounds = -this._height;
-            this._bottomBounds = config.Screen.HEIGHT + this._height;
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.centerX = this.width * 0.5;
+            this.centerY = this.height * 0.5;
+            this._topBounds = -this.height;
+            this._bottomBounds = config.Screen.HEIGHT + this.height;
             this._leftBounds = 0;
-            this._rightBounds = config.Screen.WIDTH - this._width;
+            this._rightBounds = config.Screen.WIDTH - this.width;
         }
         
         public update():void {

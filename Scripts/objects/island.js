@@ -13,6 +13,7 @@ var objects;
             _super.call(this, "island");
             this._speed.y = 5;
             this._reset(this._topBounds);
+            this.name = "island";
         }
         Island.prototype._checkBounds = function (value) {
             // check to see if the top of the island
@@ -30,7 +31,8 @@ var objects;
             this._checkBounds(this._bottomBounds);
         };
         return Island;
-    })(objects.GameObject);
+    }(objects.GameObject));
     objects.Island = Island;
 })(objects || (objects = {}));
+
 //# sourceMappingURL=island.js.map

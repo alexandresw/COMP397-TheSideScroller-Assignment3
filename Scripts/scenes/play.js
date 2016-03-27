@@ -19,19 +19,34 @@ var scenes;
             this.addChild(this._ocean);
             this._island = new objects.Island();
             this.addChild(this._island);
-            this._cloud = new objects.Cloud();
-            this.addChild(this._cloud);
+            this._player = new objects.Player();
+            this.addChild(this._player);
+            // added clouds to scene
+            this._cloudCount = 3;
+            this._clouds = new Array();
+            for (var i = 0; i < this._cloudCount; i++) {
+                this._clouds[i] = new objects.Cloud();
+                this.addChild(this._clouds[i]);
+            }
+            this._collision = new managers.Collision(this._player);
             // add this scene to the global stage container
             stage.addChild(this);
         };
         // PLAY Scene updates here
         Play.prototype.update = function () {
+            var _this = this;
             this._ocean.update();
             this._island.update();
-            this._cloud.update();
+            this._player.update();
+            this._clouds.forEach(function (cloud) {
+                cloud.update();
+                _this._collision.check(cloud);
+            });
+            this._collision.check(this._island);
         };
         return Play;
-    })(objects.Scene);
+    }(objects.Scene));
     scenes.Play = Play;
 })(scenes || (scenes = {}));
+
 //# sourceMappingURL=play.js.map

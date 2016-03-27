@@ -29,7 +29,8 @@ var objects;
             }
         };
         return Ocean;
-    })(objects.GameObject);
+    }(objects.GameObject));
     objects.Ocean = Ocean;
 })(objects || (objects = {}));
+
 //# sourceMappingURL=ocean.js.map

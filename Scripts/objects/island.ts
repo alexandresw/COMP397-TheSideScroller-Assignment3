@@ -8,6 +8,7 @@ module objects {
             
             this._speed.y = 5;
             this._reset(this._topBounds);
+            this.name = "island";
         }
         
        
