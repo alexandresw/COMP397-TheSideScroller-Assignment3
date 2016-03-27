@@ -5,32 +5,32 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var objects;
 (function (objects) {
-    var Ocean = (function (_super) {
-        __extends(Ocean, _super);
+    var Space = (function (_super) {
+        __extends(Space, _super);
         // PRIVATE INSTANCE VARIABLES
         // CONSTRUCTOR ++++++++++++++++++++++
-        function Ocean() {
-            _super.call(this, "ocean");
-            this._speed.y = 5;
-            this._reset(-960);
+        function Space() {
+            _super.call(this, "space");
+            this._speed.x = -5;
+            this._reset(0);
         }
-        Ocean.prototype.update = function () {
-            this.y += this._speed.y;
+        Space.prototype.update = function () {
+            this.x += this._speed.x;
             this._checkBounds(0);
         };
-        Ocean.prototype._reset = function (value) {
-            this.y = -960;
+        Space.prototype._reset = function (value) {
+            this.x = 0;
         };
-        Ocean.prototype._checkBounds = function () {
+        Space.prototype._checkBounds = function () {
             // check to see if the top of the ocean
             // has met the top of the scene
-            if (this.y >= 0) {
-                this._reset(-960);
+            if (this.x <= -1280) {
+                this._reset(0);
             }
         };
-        return Ocean;
+        return Space;
     }(objects.GameObject));
-    objects.Ocean = Ocean;
+    objects.Space = Space;
 })(objects || (objects = {}));
 
-//# sourceMappingURL=ocean.js.map
+//# sourceMappingURL=space.js.map

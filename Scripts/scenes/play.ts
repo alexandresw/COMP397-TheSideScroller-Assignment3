@@ -2,7 +2,7 @@
 module scenes {
     export class Play extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
-        private _ocean: objects.Ocean; 
+        private _space: objects.Space; 
         private _island: objects.Island;   
         private _clouds: objects.Cloud[];    
         private _cloudCount: number;
@@ -19,11 +19,11 @@ module scenes {
         // Start Method
         public start(): void {
 
-            this._ocean = new objects.Ocean(); 
-            this.addChild(this._ocean);
+            this._space = new objects.Space(); 
+            this.addChild(this._space);
             
-            this._island = new objects.Island(); 
-            this.addChild(this._island);
+            // this._island = new objects.Island(); 
+            // this.addChild(this._island);
             
             this._player = new objects.Player(); 
             this.addChild(this._player);
@@ -32,10 +32,10 @@ module scenes {
             this._cloudCount = 3;
             this._clouds = new Array<objects.Cloud>();
             
-            for(var i = 0; i < this._cloudCount; i++){
-                this._clouds[i] = new objects.Cloud(); 
-                this.addChild(this._clouds[i]);
-            }
+            // for(var i = 0; i < this._cloudCount; i++){
+            //     this._clouds[i] = new objects.Cloud(); 
+            //     this.addChild(this._clouds[i]);
+            // }
             
             this._collision = new managers.Collision(this._player);
             
@@ -45,15 +45,15 @@ module scenes {
 
         // PLAY Scene updates here
         public update(): void {
-            this._ocean.update();
-            this._island.update();
+            this._space.update();
+            // this._island.update();
             this._player.update();
-            this._clouds.forEach(cloud => {
-                cloud.update();
-                this._collision.check(cloud);
-            });
+            // this._clouds.forEach(cloud => {
+            //     cloud.update();
+            //     this._collision.check(cloud);
+            // });
             
-            this._collision.check(this._island);
+            // this._collision.check(this._island);
         }
         
         

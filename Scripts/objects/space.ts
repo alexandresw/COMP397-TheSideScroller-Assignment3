@@ -1,29 +1,29 @@
 module objects {
-    export class Ocean extends objects.GameObject {
+    export class Space extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
-            super("ocean");
+            super("space");
             
-            this._speed.y = 5;
-            this._reset(-960);
+            this._speed.x = -5;
+            this._reset(0);
         }
         
         public update():void {
-            this.y += this._speed.y;
+            this.x += this._speed.x;
             this._checkBounds(0);
         }
         
         protected _reset(value:number):void {
-            this.y = -960;
+            this.x = 0;
         }
         
         protected _checkBounds():void {
             // check to see if the top of the ocean
             // has met the top of the scene
-            if(this.y >= 0){
-                this._reset(-960);
+            if(this.x <= -1280){
+                this._reset(0);
             }
         }
     }

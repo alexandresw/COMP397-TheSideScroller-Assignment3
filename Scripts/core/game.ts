@@ -23,6 +23,8 @@ var assetData:objects.Asset[] = [
     {id: "plane", src:"../../Assets/images/plane.png"},
     {id: "island", src:"../../Assets/images/island.png"},
     {id: "cloud", src:"../../Assets/images/cloud.png"},
+    {id: "space", src:"../../Assets/images/space.png"},
+    {id: "player", src:"../../Assets/images/player.png"},
 ];
 
 function preload() {
@@ -52,7 +54,7 @@ function init(): void {
     setupStats(); 
     
     // set initial scene
-    scene = config.Scene.MENU;
+    scene = config.Scene.PLAY;
     changeScene();
 }
 
