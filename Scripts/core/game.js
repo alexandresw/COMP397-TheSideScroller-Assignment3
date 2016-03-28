@@ -8,19 +8,21 @@ var currentScene;
 var scene;
 // Game Scenes
 var menu;
+var instructions;
 var play;
 var end;
 var assetData = [
     // Add your Assets here
-    { id: "StartButton", src: "../../Assets/images/StartButton.png" },
+    { id: "StartButton", src: "../../Assets/images/startButton.png" },
+    { id: "InstructionsButton", src: "../../Assets/images/instructionsButton.png" },
     { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
-    { id: "BackButton", src: "../../Assets/images/BackButton.png" },
-    { id: "ocean", src: "../../Assets/images/ocean.gif" },
-    { id: "plane", src: "../../Assets/images/plane.png" },
-    { id: "island", src: "../../Assets/images/island.png" },
-    { id: "cloud", src: "../../Assets/images/cloud.png" },
+    { id: "BackButton", src: "../../Assets/images/backButton.png" },
     { id: "space", src: "../../Assets/images/space.png" },
     { id: "player", src: "../../Assets/images/player.png" },
+    { id: "smallShip", src: "../../Assets/images/smallShip.png" },
+    { id: "regularShip", src: "../../Assets/images/regularShip.png" },
+    { id: "hugeShip", src: "../../Assets/images/hugeShip.png" },
+    { id: "energy", src: "../../Assets/images/energy.png" },
 ];
 function preload() {
     assets = new createjs.LoadQueue();
@@ -42,7 +44,7 @@ function init() {
     // sets up our stats counting workflow
     setupStats();
     // set initial scene
-    scene = config.Scene.PLAY;
+    scene = config.Scene.MENU;
     changeScene();
 }
 // Main Game Loop function that handles what happens each "tick" or frame
@@ -75,6 +77,13 @@ function changeScene() {
             menu = new scenes.Menu();
             currentScene = menu;
             console.log("Starting MENU Scene");
+            break;
+        case config.Scene.INSTRUCTIONS:
+            // show the MENU scene
+            stage.removeAllChildren();
+            instructions = new scenes.Instructions();
+            currentScene = instructions;
+            console.log("Starting instructions Scene");
             break;
         case config.Scene.PLAY:
             // show the PLAY scene

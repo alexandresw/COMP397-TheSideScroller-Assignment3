@@ -17,13 +17,13 @@ var scenes;
         Play.prototype.start = function () {
             this._space = new objects.Space();
             this.addChild(this._space);
-            // this._island = new objects.Island(); 
-            // this.addChild(this._island);
+            this._enemy = new objects.Enemy("smallShip");
+            this.addChild(this._enemy);
             this._player = new objects.Player();
             this.addChild(this._player);
             // added clouds to scene
             this._cloudCount = 3;
-            this._clouds = new Array();
+            //this._clouds = new Array<objects.Cloud>();
             // for(var i = 0; i < this._cloudCount; i++){
             //     this._clouds[i] = new objects.Cloud(); 
             //     this.addChild(this._clouds[i]);
@@ -35,13 +35,13 @@ var scenes;
         // PLAY Scene updates here
         Play.prototype.update = function () {
             this._space.update();
-            // this._island.update();
+            this._enemy.update();
             this._player.update();
             // this._clouds.forEach(cloud => {
             //     cloud.update();
             //     this._collision.check(cloud);
             // });
-            // this._collision.check(this._island);
+            // this._collision.check(this._enemy);
         };
         return Play;
     }(objects.Scene));

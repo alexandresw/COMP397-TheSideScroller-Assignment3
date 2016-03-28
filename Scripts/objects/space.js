@@ -16,7 +16,7 @@ var objects;
         }
         Space.prototype.update = function () {
             this.x += this._speed.x;
-            this._checkBounds(0);
+            this._checkBounds();
         };
         Space.prototype._reset = function (value) {
             this.x = 0;

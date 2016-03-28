@@ -2,8 +2,10 @@
 module scenes {
     export class Menu extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
+        private _background:createjs.Bitmap;
         private _menuLabel: objects.Label;
         private _startButton: objects.Button;
+        private _instructionsButton: objects.Button;
         
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -14,19 +16,35 @@ module scenes {
         
         // Start Method
         public start(): void {
+            
+            // Add background image
+            this._background = new createjs.Bitmap(assets.getResult("space"));
+            this.addChild(this._background);
+            
             //Add Menu Label
             this._menuLabel = new objects.Label(
-                "MENU SCENE", "60px Consolas",
-                "#000000",
-                config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
+                "SPACE WAR", "60px Consolas",
+                "#FFF",
+                config.Screen.CENTER_X, config.Screen.CENTER_Y - 100, true);
             this.addChild(this._menuLabel);
+            
+            
+            // add the Instructions button to the MENU scene
+            this._instructionsButton = new objects.Button(
+                "InstructionsButton",
+                config.Screen.CENTER_X,
+                config.Screen.CENTER_Y + 20, true);
+            this.addChild(this._instructionsButton);
+            
+            // Instructions Button event listener
+            this._instructionsButton.on("click", this._instructionsButtonClick, this);
             
             
             // add the Start button to the MENU scene
             this._startButton = new objects.Button(
                 "StartButton",
                 config.Screen.CENTER_X,
-                config.Screen.CENTER_Y + 180, true);
+                config.Screen.CENTER_Y + 100, true);
             this.addChild(this._startButton);
             
             // Start Button event listener
@@ -45,9 +63,17 @@ module scenes {
         
         //EVENT HANDLERS ++++++++++++++++++++
         
+        // Instruction Button click event handler
+        private _instructionsButtonClick(event: createjs.MouseEvent) {
+            // Switch to the Instructions Scene
+            scene = config.Scene.INSTRUCTIONS;
+            changeScene();
+        }
+        
+        
         // LEFT_CAVE Button click event handler
         private _startButtonClick(event: createjs.MouseEvent) {
-            // Switch to the LEFT_CAVE Scene
+            // Switch to the play scene
             scene = config.Scene.PLAY;
             changeScene();
         }

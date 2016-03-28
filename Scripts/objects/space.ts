@@ -12,7 +12,7 @@ module objects {
         
         public update():void {
             this.x += this._speed.x;
-            this._checkBounds(0);
+            this._checkBounds();
         }
         
         protected _reset(value:number):void {

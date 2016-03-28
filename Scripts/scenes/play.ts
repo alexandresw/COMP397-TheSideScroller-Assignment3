@@ -3,8 +3,7 @@ module scenes {
     export class Play extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
         private _space: objects.Space; 
-        private _island: objects.Island;   
-        private _clouds: objects.Cloud[];    
+        private _enemy: objects.Enemy;   
         private _cloudCount: number;
         private _player: objects.Player;  
         private _collision: managers.Collision;
@@ -22,15 +21,15 @@ module scenes {
             this._space = new objects.Space(); 
             this.addChild(this._space);
             
-            // this._island = new objects.Island(); 
-            // this.addChild(this._island);
+            this._enemy = new objects.Enemy("smallShip"); 
+            this.addChild(this._enemy);
             
             this._player = new objects.Player(); 
             this.addChild(this._player);
             
             // added clouds to scene
             this._cloudCount = 3;
-            this._clouds = new Array<objects.Cloud>();
+            //this._clouds = new Array<objects.Cloud>();
             
             // for(var i = 0; i < this._cloudCount; i++){
             //     this._clouds[i] = new objects.Cloud(); 
@@ -46,14 +45,14 @@ module scenes {
         // PLAY Scene updates here
         public update(): void {
             this._space.update();
-            // this._island.update();
+            this._enemy.update();
             this._player.update();
             // this._clouds.forEach(cloud => {
             //     cloud.update();
             //     this._collision.check(cloud);
             // });
             
-            // this._collision.check(this._island);
+            // this._collision.check(this._enemy);
         }
         
         
