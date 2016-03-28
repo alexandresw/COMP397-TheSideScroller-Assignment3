@@ -30,6 +30,15 @@ var config;
         return Game;
     }());
     config.Game = Game;
+    var EnemyType = (function () {
+        function EnemyType() {
+        }
+        EnemyType.SMALL = 0;
+        EnemyType.REGULAR = 1;
+        EnemyType.HUGE = 2;
+        return EnemyType;
+    }());
+    config.EnemyType = EnemyType;
 })(config || (config = {}));
 
 //# sourceMappingURL=config.js.map

@@ -9,6 +9,7 @@
 /// <reference path="../objects/gameobject.ts" />
 /// <reference path="../objects/space.ts" />
 /// <reference path="../objects/enemy.ts" />
+/// <reference path="../objects/energy.ts" />
 /// <reference path="../objects/player.ts" />
 
 /// <reference path="../managers/collision.ts" />

@@ -24,27 +24,27 @@ module objects {
             this.height = this.getBounds().height;
             this.centerX = this.width * 0.5;
             this.centerY = this.height * 0.5;
-            this._topBounds = 0;
+            this._topBounds = 30;
             this._bottomBounds = config.Screen.HEIGHT - this.height;
             this._leftBounds = -this.width;
             this._rightBounds = config.Screen.WIDTH;
         }
         
         public update():void {
-            var boundValue:number = 0;
-            this.y += this._speed.y;
+            var boundValue:number = this._leftBounds;
+            this.x += this._speed.x;
             this._checkBounds(boundValue);
         }
         
         protected _reset(value:number):void {
-            this.y = value;
+            this.x = value;
         }
         
         protected _checkBounds(value:number):void {
-            var resetValue:number = 0;
+            var resetValue:number = this._rightBounds;
             // check to see if y has met the reset criteria
-            if(this.y >= value){
-                this._reset(resetValue);
+            if(this.x <= value){
+                this._reset(this._rightBounds);
             }
         }
     }

@@ -21,4 +21,10 @@
     export class Game {
         public static FPS: number = 60;
     }
+    
+    export class EnemyType {
+        public static SMALL:    number = 0;
+        public static REGULAR:  number = 1;
+        public static HUGE:     number = 2;
+    }
 }

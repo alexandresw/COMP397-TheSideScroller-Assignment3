@@ -26,7 +26,7 @@ var assetData:objects.Asset[] = [
     {id: "smallShip", src:"../../Assets/images/smallShip.png"},
     {id: "regularShip", src:"../../Assets/images/regularShip.png"},
     {id: "hugeShip", src:"../../Assets/images/hugeShip.png"},
-     {id: "energy", src:"../../Assets/images/energy.png"},
+    {id: "energy", src:"../../Assets/images/energy.png"},
 ];
 
 function preload() {
@@ -56,7 +56,7 @@ function init(): void {
     setupStats(); 
     
     // set initial scene
-    scene = config.Scene.MENU;
+    scene = config.Scene.PLAY;
     changeScene();
 }
 
