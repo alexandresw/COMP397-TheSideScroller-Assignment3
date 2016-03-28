@@ -49,6 +49,27 @@ var objects;
             this.x += this._speed.x;
             this._checkBounds(this._leftBounds);
         };
+        Enemy.prototype.collided = function (other) {
+            // if bigger ship dont do anything
+            if (this._enemyType > other._enemyType)
+                return;
+            if (this._enemyType == config.EnemyType.HUGE && this._enemyType == other._enemyType) {
+                this.y += this.y < other.y ? -this.height * 0.5 : this.height * 0.5;
+                return;
+            }
+            // slow speed
+            if (other._speed.x < this._speed.x) {
+                this._speed.x = other._speed.x;
+            }
+            // change direction
+            if (this._speed.y >= -1 && this._speed.y <= 1) {
+                this._speed.y = this.y < other.y ? -2 : 2;
+            }
+            else {
+                this._speed.y = this.y < other.y ? -Math.abs(this._speed.y) : Math.abs(this._speed.y);
+            }
+            this.y += this._speed.y;
+        };
         return Enemy;
     }(objects.GameObject));
     objects.Enemy = Enemy;

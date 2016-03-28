@@ -15,6 +15,9 @@ var objects;
             this.name = "energy";
             this._reset(this._rightBounds);
         }
+        Energy.prototype.reset = function () {
+            this._reset(this._rightBounds);
+        };
         Energy.prototype._checkBounds = function (value) {
             // check to see if the top of the island
             // has outside the viewport

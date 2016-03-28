@@ -38,7 +38,7 @@ module scenes {
             
             // added enemys to scene
             this._enemies = [];
-            this._enemiesCount = 1;
+            this._enemiesCount = 10;
             for(var i = 0; i < this._enemiesCount; i++){
                 var newEnemy:objects.Enemy = new objects.Enemy(config.EnemyType.SMALL);
                 this._enemies.push(newEnemy); 
@@ -88,6 +88,10 @@ module scenes {
             
             this._updateScores();
             
+            this.on('energyCollected', this._energyCollected, this);
+            this.on('enemyHit', this._enemyHit, this);
+            
+            
             // add 1 second event to calculate time / energy and add more enemies
             this._gameUpdateInterval = setInterval(this._updateInterval, 1000, this);
             
@@ -98,24 +102,33 @@ module scenes {
         // PLAY Scene updates here
         public update(): void {
             this._space.update();
-            
             this._player.update();
             this._energy.update();
             
-            this._enemies.forEach(enemy => {
-                enemy.update();
-                //this._collision.check(enemy);
-                // check collision between enemies
-                this._enemies.forEach(otherEnemy => {
-                    //this._collision.check(enemy, otherEnemy);
-                });
-            });
+            for(var i = 0; i < this._enemies.length; i++){
+                this._enemies[i].update();
+                
+                for(var j = i+1; j < this._enemies.length; j++){
+                    this._collision.checkEnemies(this._enemies[i], this._enemies[j]);
+                }
+            }
             
-            //this._collision.check(this._energy);
+            this._collision.check(this._energy, this);
         }
         
         
         //EVENT HANDLERS ++++++++++++++++++++
+        
+        private _energyCollected(): void {
+            this._energy.reset();
+            this._energyLevel += 10;
+        }
+        
+        private _enemyHit(): void {
+            console.log("_enemyHit called....");
+        }
+        
+        
         private _updateInterval(self): void {
             self._gameTimer++;
             if(self._gameTimer % 5 == 0) self._energyLevel -= 5;

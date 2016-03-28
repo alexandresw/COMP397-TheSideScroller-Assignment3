@@ -12,6 +12,9 @@ module objects {
             this._reset(this._rightBounds);
         }
         
+       public reset():void {
+            this._reset(this._rightBounds);
+       }
        
        protected _checkBounds(value:number):void {
             // check to see if the top of the island
