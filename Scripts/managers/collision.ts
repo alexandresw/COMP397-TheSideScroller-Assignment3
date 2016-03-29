@@ -17,7 +17,7 @@ module managers {
                 // check if it's an enemy hit
                 if(object.name === "enemy") {
                     //console.log("enemy hit!");
-                    eventHandler.dispatchEvent("enemyHit", object);
+                    eventHandler.dispatchEvent("enemyHit");
                 }
                 
                 // check if it's a cloud hit
@@ -51,7 +51,7 @@ module managers {
             endPoint.y = obj2.centerY + obj2.y;
             var minimumDistance:number = playerHalfWidth + objectHalfWidth;
             
-            if( Math.abs(endPoint.x - startPoint.x) < Math.abs(endPoint.y - startPoint.y) )
+            if( obj1 instanceof objects.Player ||  Math.abs(endPoint.x - startPoint.x) < Math.abs(endPoint.y - startPoint.y) )
                 minimumDistance = playerHalfHeight + objectHalfHeight;
             
             /* check if the distance between the player and the other object is less than the minimum distance */

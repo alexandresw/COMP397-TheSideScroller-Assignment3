@@ -2,6 +2,7 @@
 module scenes {
     export class End extends objects.Scene {
         //PRIVATE INSTANCE VARIABLES ++++++++++++
+        private _background: createjs.Bitmap;
         private _endLabel: objects.Label;
         private _restartButton: objects.Button;
         
@@ -15,16 +16,32 @@ module scenes {
         
         // Start Method
         public start(): void {
+            
+            // Add background image
+            this._background = new createjs.Bitmap(assets.getResult("space"));
+            this.addChild(this._background);
+            
             //Add Menu Label
             this._endLabel = new objects.Label(
-                "END SCENE", "60px Consolas",
-                "#000000",
-                config.Screen.CENTER_X, config.Screen.CENTER_Y, true);
+                "GAME OVER", "60px Consolas",
+                "#FFF",
+                config.Screen.CENTER_X, config.Screen.CENTER_Y - 100, true);
             this.addChild(this._endLabel);
+            
+            var scoreLabel:objects.Label = new objects.Label( 
+                "HIGH SCORE", "20px Consolas",
+                "#E0E000", config.Screen.CENTER_X, 220, true);
+            this.addChild(scoreLabel);
+            
+             var scoreValue:objects.Label = new objects.Label( 
+                ""+highScore, "25px Consolas",
+                "#007AB1", config.Screen.CENTER_X, 250, true);
+            this.addChild(scoreValue);
+            
             
             // add the BACK button to the OVER scene
             this._restartButton = new objects.Button(
-                "RestartButton",
+                "StartOverButton",
                 config.Screen.CENTER_X,
                 config.Screen.CENTER_Y + 180, true);
             this.addChild(this._restartButton);

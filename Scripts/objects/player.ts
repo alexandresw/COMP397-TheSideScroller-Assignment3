@@ -20,7 +20,6 @@ module objects {
             
             this._topBounds = this.height * 0.5 + 30;
             this._bottomBounds = config.Screen.HEIGHT - (this.height * 0.5);
-            
             this.x = 60;
         }
         
@@ -36,6 +35,17 @@ module objects {
         public update():void {
             this.y = stage.mouseY;
             this._checkBounds();
+        }
+        
+        public destroy(): void {
+            this.rotation = 60;
+            createjs.Tween.get(this).to({ x: -this.width, alpha:0 } , 600)
+        }
+        
+        public restore(): void {
+            this.rotation = 0;
+            this.x = 60;
+            this.alpha = 1;
         }
     }
 }

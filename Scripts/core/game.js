@@ -4,6 +4,7 @@ var assets;
 var canvas;
 var stage;
 var stats;
+var highScore;
 var currentScene;
 var scene;
 // Game Scenes
@@ -15,7 +16,7 @@ var assetData = [
     // Add your Assets here
     { id: "StartButton", src: "../../Assets/images/startButton.png" },
     { id: "InstructionsButton", src: "../../Assets/images/instructionsButton.png" },
-    { id: "RestartButton", src: "../../Assets/images/RestartButton.png" },
+    { id: "StartOverButton", src: "../../Assets/images/StartOverButton.png" },
     { id: "BackButton", src: "../../Assets/images/backButton.png" },
     { id: "space", src: "../../Assets/images/space.png" },
     { id: "player", src: "../../Assets/images/player.png" },

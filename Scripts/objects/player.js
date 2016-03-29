@@ -30,6 +30,15 @@ var objects;
             this.y = stage.mouseY;
             this._checkBounds();
         };
+        Player.prototype.destroy = function () {
+            this.rotation = 60;
+            createjs.Tween.get(this).to({ x: -this.width, alpha: 0 }, 600);
+        };
+        Player.prototype.restore = function () {
+            this.rotation = 0;
+            this.x = 60;
+            this.alpha = 1;
+        };
         return Player;
     }(createjs.Bitmap));
     objects.Player = Player;

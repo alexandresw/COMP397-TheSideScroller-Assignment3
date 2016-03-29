@@ -5,6 +5,7 @@ var assets: createjs.LoadQueue;
 var canvas: HTMLElement;
 var stage: createjs.Stage;
 var stats: Stats;
+var highScore: number;
 
 var currentScene: objects.Scene;
 var scene: number;
@@ -19,7 +20,7 @@ var assetData:objects.Asset[] = [
     // Add your Assets here
     {id: "StartButton", src:"../../Assets/images/startButton.png"},
     {id: "InstructionsButton", src:"../../Assets/images/instructionsButton.png"},
-    {id: "RestartButton", src:"../../Assets/images/RestartButton.png"},
+    {id: "StartOverButton", src:"../../Assets/images/StartOverButton.png"},
     {id: "BackButton", src:"../../Assets/images/backButton.png"},
     {id: "space", src:"../../Assets/images/space.png"},
     {id: "player", src:"../../Assets/images/player.png"},

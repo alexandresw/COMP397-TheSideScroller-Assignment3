@@ -15,8 +15,9 @@ module scenes {
         private _lifesCount: number;
         private _energyLevel: number;
         private _gameTimer: number;
-        private _gameUpdateInterval: Object;
-        
+        private _gameUpdateInterval: number;
+        private _isGameOver: boolean;
+
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
             super();
@@ -30,30 +31,19 @@ module scenes {
             this._space = new objects.Space(); 
             this.addChild(this._space);
             
-             this._energy = new objects.Energy();
+            this._energy = new objects.Energy();
             this.addChild(this._energy);
             
             this._player = new objects.Player(); 
             this.addChild(this._player);
             
-            // added enemys to scene
-            this._enemies = [];
-            this._enemiesCount = 10;
-            for(var i = 0; i < this._enemiesCount; i++){
-                var newEnemy:objects.Enemy = new objects.Enemy(config.EnemyType.SMALL);
-                this._enemies.push(newEnemy); 
-                this.addChild(newEnemy);
-            }
-
-            this._collision = new managers.Collision(this._player);
-           
+            highScore = 0;
             this._lifesCount = 3;
-            this._energyLevel = 100;
-            this._gameTimer = 0;
+            this._isGameOver = false;
+            this._collision = new managers.Collision(this._player);
             
             var shape = new createjs.Shape();
             shape.graphics.beginFill("#000").drawRect(0, 0, config.Screen.WIDTH, 30);
-            //shape.alpha = 0.4;
             this.addChild(shape);
             
             var gameLabel1:objects.Label = new objects.Label( 
@@ -62,7 +52,7 @@ module scenes {
             this.addChild(gameLabel1);
             
             this._lifesLabel = new objects.Label( 
-                "3", "16px Consolas",
+                " ", "16px Consolas",
                 "#FFF", 140, 15, true);
             this.addChild(this._lifesLabel);
             
@@ -72,7 +62,7 @@ module scenes {
             this.addChild(gameLabel2);
             
             this._energyLabel = new objects.Label( 
-                "100%", "16px Consolas",
+                " ", "16px Consolas",
                 "#FFF", 360, 15, true);
             this.addChild(this._energyLabel);
             
@@ -82,18 +72,14 @@ module scenes {
             this.addChild(gameLabel3);
             
             this._timerLabel = new objects.Label( 
-                "0", "16px Consolas",
+                " ", "16px Consolas",
                 "#FFF", 540, 15, true);
             this.addChild(this._timerLabel);
-            
-            this._updateScores();
             
             this.on('energyCollected', this._energyCollected, this);
             this.on('enemyHit', this._enemyHit, this);
             
-            
-            // add 1 second event to calculate time / energy and add more enemies
-            this._gameUpdateInterval = setInterval(this._updateInterval, 1000, this);
+            this._startGame();
             
             // add this scene to the global stage container
             stage.addChild(this);
@@ -101,13 +87,17 @@ module scenes {
 
         // PLAY Scene updates here
         public update(): void {
+            if(this._energyLevel <= 0) {
+                this._gameOver();
+            }
+            
             this._space.update();
             this._player.update();
             this._energy.update();
             
             for(var i = 0; i < this._enemies.length; i++){
                 this._enemies[i].update();
-                
+                this._collision.check(this._enemies[i], this);
                 for(var j = i+1; j < this._enemies.length; j++){
                     this._collision.checkEnemies(this._enemies[i], this._enemies[j]);
                 }
@@ -122,10 +112,60 @@ module scenes {
         private _energyCollected(): void {
             this._energy.reset();
             this._energyLevel += 10;
+            if(this._energyLevel>100) this._energyLevel = 100;
         }
         
         private _enemyHit(): void {
             console.log("_enemyHit called....");
+            if( this._energyLevel > 0 ){
+                this._energyLevel = 0;
+                this._gameOver();
+            }
+        }
+        
+        private _gameOver(): void {
+            if(this._isGameOver) return;
+            
+            this._isGameOver = true;
+            this._player.destroy();
+            this._lifesCount--;
+            clearInterval(this._gameUpdateInterval);
+            
+            highScore = this._gameTimer > highScore? this._gameTimer : highScore;
+            
+            // wait 2 seconds to restart game
+            setTimeout(function(self){ 
+                if(self._lifesCount < 0) {
+                    scene = config.Scene.END;
+                    changeScene();
+                }
+                else self._startGame(); 
+            }, 2000, this);
+        }
+        
+        private _startGame(): void {
+            this._energy.reset();
+            
+            for(var i = 0; i < this._enemiesCount; i++){
+                this.removeChild(this._enemies[i]);
+            }
+            this._enemies = [];
+            this._enemiesCount = 1;
+            for(var i = 0; i < this._enemiesCount; i++){
+                var newEnemy:objects.Enemy = new objects.Enemy(config.EnemyType.SMALL);
+                this._enemies.push(newEnemy); 
+                this.addChild(newEnemy);
+            }
+            
+            this._player.restore();
+            
+            this._energyLevel = 100;
+            this._gameTimer = 0;
+            this._isGameOver = false;
+            this._updateScores();
+            
+            // add 1 second event to calculate time / energy and add more enemies
+            this._gameUpdateInterval = setInterval(this._updateInterval, 1000, this);
         }
         
         
@@ -134,10 +174,10 @@ module scenes {
             if(self._gameTimer % 5 == 0) self._energyLevel -= 5;
             
             // add new enemy based on enemy frequency
-            var enemyFreq = self._gameTimer <= 20 ? 5 :
-                self._gameTimer <= 40 ? 12 :
-                self._gameTimer <= 100 ? 25 :
-                self._gameTimer <= 250 ? 40 : 60;
+            var enemyFreq = self._gameTimer <= 25 ? 8 :
+                self._gameTimer <= 50 ? 15 :
+                self._gameTimer <= 120 ? 30 :
+                self._gameTimer <= 300 ? 50 : 90;
                 
             if(self._gameTimer % enemyFreq == 0) {
                 self._enemiesCount++;
@@ -160,6 +200,7 @@ module scenes {
             
             this._energyLabel.text = (this._energyLevel<10?"0":"") + this._energyLevel + "%";
             this._timerLabel.text = timer;
+            this._lifesLabel.text = "" + this._lifesCount;
         }
         
     }
