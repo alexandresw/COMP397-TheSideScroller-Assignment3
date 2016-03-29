@@ -50,6 +50,7 @@ var objects;
             this._checkBounds(this._leftBounds);
         };
         Enemy.prototype.collided = function (other) {
+            createjs.Sound.play("collisionSound");
             // if bigger ship dont do anything
             if (this._enemyType > other._enemyType)
                 return;

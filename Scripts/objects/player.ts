@@ -38,6 +38,7 @@ module objects {
         }
         
         public destroy(): void {
+            createjs.Sound.play("explosionSound");
             this.rotation = 60;
             createjs.Tween.get(this).to({ x: -this.width, alpha:0 } , 600)
         }

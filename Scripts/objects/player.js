@@ -31,6 +31,7 @@ var objects;
             this._checkBounds();
         };
         Player.prototype.destroy = function () {
+            createjs.Sound.play("explosionSound");
             this.rotation = 60;
             createjs.Tween.get(this).to({ x: -this.width, alpha: 0 }, 600);
         };

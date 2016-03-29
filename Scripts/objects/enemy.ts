@@ -57,6 +57,8 @@ module objects {
         }
         
         public collided(other:objects.Enemy):void {
+            createjs.Sound.play("collisionSound");
+            
             // if bigger ship dont do anything
             if(this._enemyType > other._enemyType) return;
             

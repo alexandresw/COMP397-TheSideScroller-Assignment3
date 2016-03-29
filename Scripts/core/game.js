@@ -24,12 +24,17 @@ var assetData = [
     { id: "regularShip", src: "../../Assets/images/regularShip.png" },
     { id: "hugeShip", src: "../../Assets/images/hugeShip.png" },
     { id: "energy", src: "../../Assets/images/energy.png" },
+    { id: "collisionSound", src: "../../Assets/audio/collision.mp3" },
+    { id: "engineSound", src: "../../Assets/audio/engine.mp3" },
+    { id: "explosionSound", src: "../../Assets/audio/explosion.mp3" },
+    { id: "energySound", src: "../../Assets/audio/energy.wav" },
 ];
 function preload() {
     assets = new createjs.LoadQueue();
     assets.installPlugin(createjs.Sound);
     assets.on("complete", init, this);
     assets.loadManifest(assetData);
+    createjs.Sound.alternateExtensions = ["mp3"];
 }
 function init() {
     // create a reference the HTML canvas Element
@@ -45,7 +50,7 @@ function init() {
     // sets up our stats counting workflow
     setupStats();
     // set initial scene
-    scene = config.Scene.PLAY;
+    scene = config.Scene.MENU;
     changeScene();
 }
 // Main Game Loop function that handles what happens each "tick" or frame

@@ -65,6 +65,7 @@ var scenes;
         };
         //EVENT HANDLERS ++++++++++++++++++++
         Play.prototype._energyCollected = function () {
+            createjs.Sound.play("energySound");
             this._energy.reset();
             this._energyLevel += 10;
             if (this._energyLevel > 100)
@@ -80,12 +81,13 @@ var scenes;
         Play.prototype._gameOver = function () {
             if (this._isGameOver)
                 return;
+            this._engineSound.stop();
             this._isGameOver = true;
             this._player.destroy();
             this._lifesCount--;
             clearInterval(this._gameUpdateInterval);
             highScore = this._gameTimer > highScore ? this._gameTimer : highScore;
-            // wait 2 seconds to restart game
+            // wait 3 seconds to restart game
             setTimeout(function (self) {
                 if (self._lifesCount < 0) {
                     scene = config.Scene.END;
@@ -93,9 +95,11 @@ var scenes;
                 }
                 else
                     self._startGame();
-            }, 2000, this);
+            }, 3000, this);
         };
         Play.prototype._startGame = function () {
+            this._engineSound = createjs.Sound.play("engineSound");
+            this._engineSound.loop = -1;
             this._energy.reset();
             for (var i = 0; i < this._enemiesCount; i++) {
                 this.removeChild(this._enemies[i]);

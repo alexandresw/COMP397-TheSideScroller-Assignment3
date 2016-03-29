@@ -17,6 +17,7 @@ module scenes {
         private _gameTimer: number;
         private _gameUpdateInterval: number;
         private _isGameOver: boolean;
+        private _engineSound: createjs.AbstractSoundInstance;
 
         // CONSTRUCTOR ++++++++++++++++++++++
         constructor() {
@@ -110,6 +111,7 @@ module scenes {
         //EVENT HANDLERS ++++++++++++++++++++
         
         private _energyCollected(): void {
+            createjs.Sound.play("energySound");
             this._energy.reset();
             this._energyLevel += 10;
             if(this._energyLevel>100) this._energyLevel = 100;
@@ -126,6 +128,7 @@ module scenes {
         private _gameOver(): void {
             if(this._isGameOver) return;
             
+            this._engineSound.stop();
             this._isGameOver = true;
             this._player.destroy();
             this._lifesCount--;
@@ -133,17 +136,19 @@ module scenes {
             
             highScore = this._gameTimer > highScore? this._gameTimer : highScore;
             
-            // wait 2 seconds to restart game
+            // wait 3 seconds to restart game
             setTimeout(function(self){ 
                 if(self._lifesCount < 0) {
                     scene = config.Scene.END;
                     changeScene();
                 }
                 else self._startGame(); 
-            }, 2000, this);
+            }, 3000, this);
         }
         
         private _startGame(): void {
+            this._engineSound = createjs.Sound.play("engineSound");
+            this._engineSound.loop = -1;
             this._energy.reset();
             
             for(var i = 0; i < this._enemiesCount; i++){

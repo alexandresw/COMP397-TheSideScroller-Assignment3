@@ -1,3 +1,6 @@
-# COMP397-W2016-MailPilotDemo Project
+# COMP397-SideScroller-Assignment3
 
-COMP397-W2016-MailPilotDemo Project for Web Game Programming @ Centennial
+COMP397 - Side Scroller Game - Assignment 03
+
+Live Version:
+http://comp397-alexandre-sidescroller-ass03.azurewebsites.net

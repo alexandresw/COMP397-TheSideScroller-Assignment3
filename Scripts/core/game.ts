@@ -28,6 +28,11 @@ var assetData:objects.Asset[] = [
     {id: "regularShip", src:"../../Assets/images/regularShip.png"},
     {id: "hugeShip", src:"../../Assets/images/hugeShip.png"},
     {id: "energy", src:"../../Assets/images/energy.png"},
+    
+    {id: "collisionSound", src:"../../Assets/audio/collision.mp3"},
+    {id: "engineSound", src:"../../Assets/audio/engine.mp3"},
+    {id: "explosionSound", src:"../../Assets/audio/explosion.mp3"},
+    {id: "energySound", src:"../../Assets/audio/energy.wav"},
 ];
 
 function preload() {
@@ -35,6 +40,8 @@ function preload() {
     assets.installPlugin(createjs.Sound);
     assets.on("complete", init, this);
     assets.loadManifest(assetData);
+    createjs.Sound.alternateExtensions = ["mp3"];
+    
 }
 
 function init(): void {
@@ -57,7 +64,7 @@ function init(): void {
     setupStats(); 
     
     // set initial scene
-    scene = config.Scene.PLAY;
+    scene = config.Scene.MENU;
     changeScene();
 }
 
